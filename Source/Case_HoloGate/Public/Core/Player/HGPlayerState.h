@@ -11,7 +11,7 @@
  *
  *	Base player state class used by this project.
  */
-UCLASS()
+UCLASS(Blueprintable, Meta = (ShortTooltip = "The base player state class used by this project."))
 class CASE_HOLOGATE_API AHGPlayerState : public APlayerState
 {
 	GENERATED_BODY()

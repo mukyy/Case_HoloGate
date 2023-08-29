@@ -6,7 +6,13 @@
 #include "GameFramework/Actor.h"
 #include "HGWeapon.generated.h"
 
-UCLASS()
+/**
+ * AHGWeapon
+ *
+ *  Base weapon actor to represent visuals for the weapons.
+ *  Contains cosmetic logic to drive visuals for the weapons e.g: Sounds, Traces, Decals, etc.
+ */
+UCLASS(Blueprintable, Meta = (ShortTooltip = "The base weapon actor."))
 class CASE_HOLOGATE_API AHGWeapon : public AActor
 {
 	GENERATED_BODY()
@@ -18,9 +24,5 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 };

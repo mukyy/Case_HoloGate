@@ -14,7 +14,10 @@ class UHGAttributeInterface : public UInterface
 };
 
 /**
- * 
+ * IHGAttributeInterface
+ *
+ *  Manages attribute getters & setters.
+ *  Used to protect AttributesComponent from direct access.
  */
 class CASE_HOLOGATE_API IHGAttributeInterface
 {

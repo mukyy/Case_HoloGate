@@ -15,7 +15,7 @@
  *  Purpose of this component is to allow components to be modular so dependencies are as minimum as possible.
  */
 UCLASS(Blueprintable, Config = Game, Meta = (ShortTooltip = "Controls and manages other components related to Pawn."))
-class CASE_HOLOGATE_API UHGPawnExtensionComponent : public UHGComponent, IHGAttributeInterface
+class CASE_HOLOGATE_API UHGPawnExtensionComponent : public UHGComponent, public IHGAttributeInterface
 {
 	GENERATED_BODY()
 	

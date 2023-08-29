@@ -7,9 +7,12 @@
 #include "HGWeaponComponent.generated.h"
 
 /**
- * 
+ * UHGWeaponComponent
+ *
+ *  Handles gameplay functionality of the weapons such as firing, reloading etc.
+ *  Gets added runtime when a weapon is equipped.
  */
-UCLASS()
+UCLASS(Blueprintable)
 class CASE_HOLOGATE_API UHGWeaponComponent : public UHGPawnComponent
 {
 	GENERATED_BODY()
