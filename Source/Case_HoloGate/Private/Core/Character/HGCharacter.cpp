@@ -3,15 +3,65 @@
 
 #include "Core/Character/HGCharacter.h"
 
+#include "HGLogChannels.h"
 #include "Core/Player/HGPlayerController.h"
 #include "Core/Player/HGPlayerState.h"
+#include "Core/Components/HGPawnExtensionComponent.h"
+#include "Core/Components/HGAttributesComponent.h"
+#include "Core/Components/HGMovementComponent.h"
+#include "Core/Components/HGWeaponComponent.h"
 
 
-// Sets default values
-AHGCharacter::AHGCharacter()
+AHGCharacter::AHGCharacter(const FObjectInitializer& ObjectInitializer)
+: Super(ObjectInitializer)
 {
-	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	SetReplicates(true);
+	
+	PawnExtensionComponent = CreateDefaultSubobject<UHGPawnExtensionComponent>(FName("Pawn Extension Component"));
+	MovementComponent = CreateDefaultSubobject<UHGCharacterMovementComponent>(FName("Character Movement"));
+	AttributesComponent = CreateDefaultSubobject<UHGAttributesComponent>(FName("Attributes Component"));
+	WeaponComponent = CreateDefaultSubobject<UHGWeaponComponent>(FName("Weapon Component"));
+}
+
+UHGPawnExtensionComponent* AHGCharacter::GetPawnExtensionComponent() const
+{
+	if (PawnExtensionComponent == nullptr)
+	{
+		UE_LOG(LogHG, Error, TEXT("Pawn Extension Component is missing!"));
+		return nullptr;
+	}
+	return PawnExtensionComponent;
+}
+
+UHGCharacterMovementComponent* AHGCharacter::GetCharacterMovementComponent() const
+{
+	if (MovementComponent == nullptr)
+	{
+		UE_LOG(LogHG, Error, TEXT("Character Movement Component is missing!"));
+		return nullptr;
+	}
+	return MovementComponent;
+}
+
+UHGAttributesComponent* AHGCharacter::GetAttributesComponent() const
+{
+	if (AttributesComponent == nullptr)
+	{
+		UE_LOG(LogHG, Error, TEXT("Attributes Component is missing!"));
+		return nullptr;
+	}
+	return AttributesComponent;
+}
+
+UHGWeaponComponent* AHGCharacter::GetWeaponComponent() const
+{
+	if (WeaponComponent == nullptr)
+	{
+		UE_LOG(LogHG, Error, TEXT("Weapon Component is missing!"));
+		return nullptr;
+	}
+	return WeaponComponent;
 }
 
 AHGPlayerController* AHGCharacter::GetHGPlayerController() const

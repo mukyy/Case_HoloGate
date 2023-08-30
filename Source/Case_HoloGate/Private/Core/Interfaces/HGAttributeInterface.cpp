@@ -3,5 +3,3 @@
 
 #include "Core/Interfaces/HGAttributeInterface.h"
 
-
-// Add default functionality here for any IHGAttributeInterface functions that are not pure virtual.

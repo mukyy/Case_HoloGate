@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Core/Components/HGPawnComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "HGMovementComponent.generated.h"
 
 /**
@@ -12,7 +12,7 @@
  *  Handles all things related to movement of the character it is attached to.
  */
 UCLASS(Blueprintable)
-class CASE_HOLOGATE_API UHGMovementComponent : public UHGPawnComponent
+class CASE_HOLOGATE_API UHGCharacterMovementComponent : public UCharacterMovementComponent
 {
 	GENERATED_BODY()
 	

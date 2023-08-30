@@ -6,8 +6,13 @@
 #include "GameFramework/Pawn.h"
 #include "HGCharacter.generated.h"
 
+class UHGCharacterMovementComponent;
+class UHGWeaponComponent;
+class UHGAttributesComponent;
+class UHGPawnExtensionComponent;
 class AHGPlayerController;
 class AHGPlayerState;
+
 
 /**
  * AHGCharacter
@@ -20,11 +25,21 @@ UCLASS(Blueprintable, Config = Game, Meta = (ShortTooltip = "The base character 
 class CASE_HOLOGATE_API AHGCharacter : public APawn
 {
 	GENERATED_BODY()
-
 public:
 	// Sets default values for this pawn's properties
-	AHGCharacter();
+	AHGCharacter(const FObjectInitializer& ObjectInitializer);
 
+private:
+	UPROPERTY(EditDefaultsOnly)
+	UHGPawnExtensionComponent* PawnExtensionComponent;
+	UPROPERTY(EditDefaultsOnly)
+	UHGCharacterMovementComponent* MovementComponent;
+	UPROPERTY(EditDefaultsOnly)
+	UHGAttributesComponent* AttributesComponent;
+	UPROPERTY(EditDefaultsOnly)
+	UHGWeaponComponent* WeaponComponent;
+
+public:
 	// Gets the controller of this pawn.
 	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
 	AHGPlayerController* GetHGPlayerController() const;
@@ -32,6 +47,15 @@ public:
 	// Gets the player state of this pawn.
 	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
 	AHGPlayerState* GetHGPlayerState() const;
+
+	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
+	UHGPawnExtensionComponent* GetPawnExtensionComponent() const;
+	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
+	UHGCharacterMovementComponent* GetCharacterMovementComponent() const;
+	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
+	UHGAttributesComponent* GetAttributesComponent() const;
+	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
+	UHGWeaponComponent* GetWeaponComponent() const;
 
 protected:
 	// Called when the game starts or when spawned

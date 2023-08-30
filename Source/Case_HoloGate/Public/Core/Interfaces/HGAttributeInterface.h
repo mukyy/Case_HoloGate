@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "UObject/Interface.h"
 #include "HGAttributeInterface.generated.h"
 
@@ -25,4 +26,10 @@ class CASE_HOLOGATE_API IHGAttributeInterface
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	virtual float GetAttribute(const FGameplayTag& Attribute) const = 0;
+	virtual void SetAttribute(const FGameplayTag& Attribute, float NewValue) const = 0;
+
+	// Instead of setting the value directly, calculates new value using (Value + Amount). Amount can be negative as well.
+	virtual void ModifyAttribute(const FGameplayTag& Attribute, float Amount) const = 0;
+
 };

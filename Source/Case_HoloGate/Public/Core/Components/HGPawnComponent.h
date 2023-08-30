@@ -6,6 +6,9 @@
 #include "Core/Components/HGComponent.h"
 #include "HGPawnComponent.generated.h"
 
+CASE_HOLOGATE_API DECLARE_LOG_CATEGORY_EXTERN(LogLyraTeams, Log, All);
+
+
 /**
  * UHGPawnComponent
  *
