@@ -13,11 +13,3 @@ UHGComponent::UHGComponent()
 	// ...
 }
 
-// Called when the game starts
-void UHGComponent::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// ...
-	
-}

@@ -23,16 +23,27 @@ public:
 	UHGWeaponComponent();
 	
 private:
+	UFUNCTION(Server, Reliable)
+	void Server_EquipNewWeapon(UHGWeaponData* newWeaponData);
+
+	UFUNCTION(Server, Reliable)
+	void Server_UnequipCurrentWeapon();
+
+	UPROPERTY()
+	USceneComponent* WeaponSocketComponent;
+	
 	UPROPERTY(ReplicatedUsing=OnRep_WeaponInstance)
 	AHGWeapon* WeaponInstance;
 
 	UPROPERTY(EditDefaultsOnly)
 	UHGWeaponData* DefaultWeaponData;
 
-	UPROPERTY(Replicated)
+	UPROPERTY(Replicated, VisibleInstanceOnly)
 	UHGWeaponData* CurrentWeaponData;
 	
 protected:
+	virtual void BeginPlay() override;
+	
 	UFUNCTION(BlueprintCallable)
 	AHGWeapon* GetWeaponInstance() const;
 
@@ -40,7 +51,20 @@ protected:
 	void OnRep_WeaponInstance();
 
 public:
+	UFUNCTION(BlueprintCallable)
+	USceneComponent* GetWeaponSocketComponent() const;
+	
+	void SetWeaponSocketComponent(USceneComponent* WeaponSocket);
+
+	UFUNCTION(BlueprintCallable)
 	bool HasEquippedWeapon() const;
+
+	UFUNCTION(BlueprintCallable)
 	bool CanEquipNewWeapon() const;
-	void EquipNewWeapon(OUT bool& bIsSuccess);
+
+	UFUNCTION(BlueprintCallable)
+	void EquipNewWeapon(UHGWeaponData* newWeaponData);
+
+	UFUNCTION(BlueprintCallable)
+	void UnequipCurrentWeapon();
 };

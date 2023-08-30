@@ -9,10 +9,10 @@
 /**
  * AHGWeapon
  *
- *  Base weapon actor to represent visuals for the weapons.
+ *  Base abstract weapon actor to represent visuals for the weapons.
  *  Contains cosmetic logic to drive visuals for the weapons e.g: Sounds, Traces, Decals, etc.
  */
-UCLASS(Blueprintable, Meta = (ShortTooltip = "The base weapon actor."))
+UCLASS(Abstract, Blueprintable, Meta = (ShortTooltip = "The base abstract weapon actor."))
 class CASE_HOLOGATE_API AHGWeapon : public AActor
 {
 	GENERATED_BODY()

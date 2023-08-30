@@ -7,9 +7,7 @@
 #include "Camera/CameraComponent.h"
 #include "Core/Player/HGPlayerController.h"
 #include "Core/Player/HGPlayerState.h"
-#include "Core/Components/HGPawnExtensionComponent.h"
 #include "Core/Components/HGAttributesComponent.h"
-#include "Core/Components/HGMovementComponent.h"
 #include "Core/Components/HGWeaponComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
@@ -29,19 +27,22 @@ AHGCharacter::AHGCharacter(const FObjectInitializer& ObjectInitializer)
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(FName("Camera"));
 	CameraComponent->AttachToComponent(SpringArmComponent, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	
-	PawnExtensionComponent = CreateDefaultSubobject<UHGPawnExtensionComponent>(FName("Pawn Extension Component"));
 	AttributesComponent = CreateDefaultSubobject<UHGAttributesComponent>(FName("Attributes Component"));
 	WeaponComponent = CreateDefaultSubobject<UHGWeaponComponent>(FName("Weapon Component"));
+	WeaponComponent->SetWeaponSocketComponent(WeaponSocketComponent);
 }
 
-UHGPawnExtensionComponent* AHGCharacter::GetPawnExtensionComponent() const
+// Called when the game starts or when spawned
+void AHGCharacter::BeginPlay()
 {
-	if (PawnExtensionComponent == nullptr)
-	{
-		Error_MissingComponent(UHGPawnExtensionComponent::StaticClass());
-		return nullptr;
-	}
-	return PawnExtensionComponent;
+	Super::BeginPlay();
+	
+}
+
+// Called to bind functionality to input
+void AHGCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
 UHGAttributesComponent* AHGCharacter::GetAttributesComponent() const
@@ -74,6 +75,16 @@ AHGPlayerState* AHGCharacter::GetHGPlayerState() const
 	return CastChecked<AHGPlayerState>(GetPlayerState(), ECastCheckedType::NullAllowed);
 }
 
+USceneComponent* AHGCharacter::GetWeaponSocketComponent() const
+{
+	if (WeaponSocketComponent == nullptr)
+	{
+		UE_LOG(LogHG, Error, TEXT("Weapon socket component is missing from character!"));
+		return nullptr;
+	}
+	return WeaponSocketComponent;
+}
+
 USpringArmComponent* AHGCharacter::GetSpringArmComponent() const
 {
 	if (SpringArmComponent == nullptr)
@@ -93,23 +104,3 @@ UCameraComponent* AHGCharacter::GetCameraComponent() const
 	}
 	return CameraComponent;
 }
-
-// Called when the game starts or when spawned
-void AHGCharacter::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
-// Called every frame
-void AHGCharacter::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-
-// Called to bind functionality to input
-void AHGCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-}
-

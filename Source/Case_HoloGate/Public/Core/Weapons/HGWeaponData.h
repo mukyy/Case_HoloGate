@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameplayTagContainer.h"
 #include "Engine/DataAsset.h"
 #include "HGWeaponData.generated.h"
 
@@ -85,9 +84,12 @@ struct FWeaponData
 };
 
 /**
- * 
+ * UHGWeaponData
+ *
+ *  Contains every data type related to weapon systems.
+ *  Has both visual and gameplay logic data.
  */
-UCLASS()
+UCLASS(Meta = (ShortTooltip = "Contains necessary data for weapons to drive the weapon systems."))
 class CASE_HOLOGATE_API UHGWeaponData : public UPrimaryDataAsset
 {
 	GENERATED_BODY()

@@ -9,9 +9,9 @@
 /**
  * UHGComponent
  *
- *  Base component that all components should be deriving from for extendability. 
+ *  Base abstract component that all components should be deriving from for extendability. 
  */
-UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Meta = (ShortTooltip = "Base actor component used in this project.") )
+UCLASS(Abstract, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Meta = (ShortTooltip = "Base abstract actor component to derive from.") )
 class CASE_HOLOGATE_API UHGComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -19,9 +19,4 @@ class CASE_HOLOGATE_API UHGComponent : public UActorComponent
 public:	
 	UHGComponent();
 
-
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
-		
 };

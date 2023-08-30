@@ -10,10 +10,8 @@ class UCameraComponent;
 class USpringArmComponent;
 class AHGPlayerController;
 class AHGPlayerState;
-class UHGCharacterMovementComponent;
 class UHGWeaponComponent;
 class UHGAttributesComponent;
-class UHGPawnExtensionComponent;
 
 
 /**
@@ -40,8 +38,6 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UCameraComponent* CameraComponent;
 	UPROPERTY(EditDefaultsOnly)
-	UHGPawnExtensionComponent* PawnExtensionComponent;
-	UPROPERTY(EditDefaultsOnly)
 	UHGAttributesComponent* AttributesComponent;
 	UPROPERTY(EditDefaultsOnly)
 	UHGWeaponComponent* WeaponComponent;
@@ -54,13 +50,13 @@ public:
 	AHGPlayerState* GetHGPlayerState() const;
 
 	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
+	USceneComponent* GetWeaponSocketComponent() const;
+	
+	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
 	USpringArmComponent* GetSpringArmComponent() const;
 	
 	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
 	UCameraComponent* GetCameraComponent() const;
-	
-	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
-	UHGPawnExtensionComponent* GetPawnExtensionComponent() const;
 	
 	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
 	UHGAttributesComponent* GetAttributesComponent() const;
@@ -73,8 +69,6 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

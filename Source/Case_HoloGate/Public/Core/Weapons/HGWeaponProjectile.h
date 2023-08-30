@@ -21,10 +21,11 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnProjectileExploded, TArray<AActor
 /**
  * AHGWeaponProjectile
  *
+ *  Base abstract projectile class for projectiles.
  *  Get spawned everytime weapon is fired.
  *  Contains both visual and gameplay logic.
  */
-UCLASS(Blueprintable)
+UCLASS(Abstract, Blueprintable, Meta = (ShortTooltip = "The base abstract projectile class."))
 class CASE_HOLOGATE_API AHGWeaponProjectile : public AActor
 {
 	GENERATED_BODY()
