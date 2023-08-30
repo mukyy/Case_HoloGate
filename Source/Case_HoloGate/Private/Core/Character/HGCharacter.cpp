@@ -19,6 +19,9 @@ AHGCharacter::AHGCharacter(const FObjectInitializer& ObjectInitializer)
 {
 	PrimaryActorTick.bCanEverTick = true;
 	SetReplicates(true);
+
+	WeaponSocketComponent = CreateDefaultSubobject<USceneComponent>(FName("Weapon Socket"));
+	WeaponSocketComponent->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	
 	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(FName("Spring Arm"));
 	SpringArmComponent->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::SnapToTargetNotIncludingScale);

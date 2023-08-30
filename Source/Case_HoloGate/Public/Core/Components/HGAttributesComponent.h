@@ -11,8 +11,8 @@ USTRUCT(Blueprintable)
 struct FAttribute
 {
 	GENERATED_BODY()
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Meta = (Categories = "Attribute"))
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	FGameplayTag AttributeTag;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
@@ -22,7 +22,7 @@ struct FAttribute
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	FVector2D MinMaxValue = FVector2D(0.0, 100.0f);
 
-	// Attribute tag is used for keying when used in Arrays.
+	// AttributeTag is used for keying when used in Arrays.
 	bool operator==(const FGameplayTag& Other) const
 	{
 		return AttributeTag.MatchesTagExact(Other);

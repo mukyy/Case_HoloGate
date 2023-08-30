@@ -28,7 +28,7 @@ int32 UHGAttributesComponent::GetAttributeIndex(const FGameplayTag& Attribute) c
 
 	if (attributeIndex == -1)
 	{
-		UE_LOG(LogHG, Warning, TEXT("Owner does not have %s attribute."), *Attribute.ToString());
+		UE_LOG(LogHGDebug, Display, TEXT("%s actor does not have %s attribute"), *GetOwner()->GetName(), *Attribute.ToString())
 		return -1.f;
 	}
 	return attributeIndex;

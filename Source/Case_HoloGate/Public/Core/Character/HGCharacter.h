@@ -32,6 +32,9 @@ public:
 	AHGCharacter(const FObjectInitializer& ObjectInitializer);
 
 private:
+	// Spawned weapon visuals gets attached to it, acts as a socket.
+	UPROPERTY(EditDefaultsOnly)
+	USceneComponent* WeaponSocketComponent;
 	UPROPERTY(EditDefaultsOnly)
 	USpringArmComponent* SpringArmComponent;
 	UPROPERTY(EditDefaultsOnly)
