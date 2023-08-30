@@ -4,12 +4,14 @@
 #include "Core/Character/HGCharacter.h"
 
 #include "HGLogChannels.h"
+#include "Camera/CameraComponent.h"
 #include "Core/Player/HGPlayerController.h"
 #include "Core/Player/HGPlayerState.h"
 #include "Core/Components/HGPawnExtensionComponent.h"
 #include "Core/Components/HGAttributesComponent.h"
 #include "Core/Components/HGMovementComponent.h"
 #include "Core/Components/HGWeaponComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 
 
 AHGCharacter::AHGCharacter(const FObjectInitializer& ObjectInitializer)
@@ -18,8 +20,13 @@ AHGCharacter::AHGCharacter(const FObjectInitializer& ObjectInitializer)
 	PrimaryActorTick.bCanEverTick = true;
 	SetReplicates(true);
 	
+	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(FName("Spring Arm"));
+	SpringArmComponent->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+	SpringArmComponent->TargetArmLength = 800.0f;
+	CameraComponent = CreateDefaultSubobject<UCameraComponent>(FName("Camera"));
+	CameraComponent->AttachToComponent(SpringArmComponent, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+	
 	PawnExtensionComponent = CreateDefaultSubobject<UHGPawnExtensionComponent>(FName("Pawn Extension Component"));
-	MovementComponent = CreateDefaultSubobject<UHGCharacterMovementComponent>(FName("Character Movement"));
 	AttributesComponent = CreateDefaultSubobject<UHGAttributesComponent>(FName("Attributes Component"));
 	WeaponComponent = CreateDefaultSubobject<UHGWeaponComponent>(FName("Weapon Component"));
 }
@@ -28,27 +35,17 @@ UHGPawnExtensionComponent* AHGCharacter::GetPawnExtensionComponent() const
 {
 	if (PawnExtensionComponent == nullptr)
 	{
-		UE_LOG(LogHG, Error, TEXT("Pawn Extension Component is missing!"));
+		Error_MissingComponent(UHGPawnExtensionComponent::StaticClass());
 		return nullptr;
 	}
 	return PawnExtensionComponent;
-}
-
-UHGCharacterMovementComponent* AHGCharacter::GetCharacterMovementComponent() const
-{
-	if (MovementComponent == nullptr)
-	{
-		UE_LOG(LogHG, Error, TEXT("Character Movement Component is missing!"));
-		return nullptr;
-	}
-	return MovementComponent;
 }
 
 UHGAttributesComponent* AHGCharacter::GetAttributesComponent() const
 {
 	if (AttributesComponent == nullptr)
 	{
-		UE_LOG(LogHG, Error, TEXT("Attributes Component is missing!"));
+		Error_MissingComponent(UHGAttributesComponent::StaticClass());
 		return nullptr;
 	}
 	return AttributesComponent;
@@ -58,7 +55,7 @@ UHGWeaponComponent* AHGCharacter::GetWeaponComponent() const
 {
 	if (WeaponComponent == nullptr)
 	{
-		UE_LOG(LogHG, Error, TEXT("Weapon Component is missing!"));
+		Error_MissingComponent(UHGWeaponComponent::StaticClass());
 		return nullptr;
 	}
 	return WeaponComponent;
@@ -72,6 +69,26 @@ AHGPlayerController* AHGCharacter::GetHGPlayerController() const
 AHGPlayerState* AHGCharacter::GetHGPlayerState() const
 {
 	return CastChecked<AHGPlayerState>(GetPlayerState(), ECastCheckedType::NullAllowed);
+}
+
+USpringArmComponent* AHGCharacter::GetSpringArmComponent() const
+{
+	if (SpringArmComponent == nullptr)
+	{
+		Error_MissingComponent(USpringArmComponent::StaticClass());
+		return nullptr;
+	}
+	return SpringArmComponent;
+}
+
+UCameraComponent* AHGCharacter::GetCameraComponent() const
+{
+	if (CameraComponent == nullptr)
+	{
+		Error_MissingComponent(UCameraComponent::StaticClass());
+		return nullptr;
+	}
+	return CameraComponent;
 }
 
 // Called when the game starts or when spawned

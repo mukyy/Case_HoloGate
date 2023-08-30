@@ -4,7 +4,6 @@
 #include "Core/Components/HGPawnExtensionComponent.h"
 
 #include "HGLogChannels.h"
-#include "Core/Components/HGPawnComponent.h"
 #include "Core/Components/HGAttributesComponent.h"
 
 UHGPawnExtensionComponent::UHGPawnExtensionComponent()

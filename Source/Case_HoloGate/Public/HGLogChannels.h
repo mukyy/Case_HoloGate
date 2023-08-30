@@ -13,3 +13,4 @@ class UObject;
 CASE_HOLOGATE_API DECLARE_LOG_CATEGORY_EXTERN(LogHG, Log, All);
 CASE_HOLOGATE_API DECLARE_LOG_CATEGORY_EXTERN(LogHGDebug, Log, All);
 
+CASE_HOLOGATE_API void Error_MissingComponent(TSubclassOf<UActorComponent> ComponentClass);

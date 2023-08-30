@@ -8,7 +8,6 @@
 #include "HGPawnExtensionComponent.generated.h"
 
 class UHGAttributesComponent;
-class UHGPawnComponent;
 
 /**  
  * HGPawnExtensionComponent

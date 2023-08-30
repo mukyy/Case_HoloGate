@@ -3,15 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Pawn.h"
+#include "GameFramework/Character.h"
 #include "HGCharacter.generated.h"
 
+class UCameraComponent;
+class USpringArmComponent;
+class AHGPlayerController;
+class AHGPlayerState;
 class UHGCharacterMovementComponent;
 class UHGWeaponComponent;
 class UHGAttributesComponent;
 class UHGPawnExtensionComponent;
-class AHGPlayerController;
-class AHGPlayerState;
 
 
 /**
@@ -22,7 +24,7 @@ class AHGPlayerState;
  *	New behavior should be added via pawn components when possible.
  */
 UCLASS(Blueprintable, Config = Game, Meta = (ShortTooltip = "The base character pawn class used by this project."))
-class CASE_HOLOGATE_API AHGCharacter : public APawn
+class CASE_HOLOGATE_API AHGCharacter : public ACharacter
 {
 	GENERATED_BODY()
 public:
@@ -31,29 +33,35 @@ public:
 
 private:
 	UPROPERTY(EditDefaultsOnly)
-	UHGPawnExtensionComponent* PawnExtensionComponent;
+	USpringArmComponent* SpringArmComponent;
 	UPROPERTY(EditDefaultsOnly)
-	UHGCharacterMovementComponent* MovementComponent;
+	UCameraComponent* CameraComponent;
+	UPROPERTY(EditDefaultsOnly)
+	UHGPawnExtensionComponent* PawnExtensionComponent;
 	UPROPERTY(EditDefaultsOnly)
 	UHGAttributesComponent* AttributesComponent;
 	UPROPERTY(EditDefaultsOnly)
 	UHGWeaponComponent* WeaponComponent;
-
+	
 public:
-	// Gets the controller of this pawn.
 	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
 	AHGPlayerController* GetHGPlayerController() const;
 
-	// Gets the player state of this pawn.
 	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
 	AHGPlayerState* GetHGPlayerState() const;
 
 	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
-	UHGPawnExtensionComponent* GetPawnExtensionComponent() const;
+	USpringArmComponent* GetSpringArmComponent() const;
+	
 	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
-	UHGCharacterMovementComponent* GetCharacterMovementComponent() const;
+	UCameraComponent* GetCameraComponent() const;
+	
+	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
+	UHGPawnExtensionComponent* GetPawnExtensionComponent() const;
+	
 	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
 	UHGAttributesComponent* GetAttributesComponent() const;
+
 	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
 	UHGWeaponComponent* GetWeaponComponent() const;
 
