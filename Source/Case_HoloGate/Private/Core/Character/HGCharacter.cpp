@@ -28,6 +28,7 @@ AHGCharacter::AHGCharacter(const FObjectInitializer& ObjectInitializer)
 	CameraComponent->AttachToComponent(SpringArmComponent, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	
 	AttributesComponent = CreateDefaultSubobject<UHGAttributesComponent>(FName("Attributes Component"));
+	//TODO: Initialize weapon component here.
 }
 
 // Called when the game starts or when spawned
@@ -36,15 +37,20 @@ void AHGCharacter::BeginPlay()
 	Super::BeginPlay();
 }
 
-void AHGCharacter::SetWeaponComponent(UHGWeaponComponent* WeaponComponentRef)
-{
-	WeaponComponent = WeaponComponentRef;
-}
-
-// Called to bind functionality to input
 void AHGCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	//TODO: Carry over inputs to C++.
+}
+
+void AHGCharacter::SetWeaponComponent(UHGWeaponComponent* weaponComponentRef)
+{
+	if (weaponComponentRef == nullptr)
+	{
+		UE_LOG(LogHG, Warning, TEXT("Invalid weapon component instance came attempted to to set it"));
+		return;
+	}
+	WeaponComponent = weaponComponentRef;
 }
 
 UHGAttributesComponent* AHGCharacter::GetAttributesComponent() const

@@ -21,10 +21,6 @@ public:
 	// Sets default values for this actor's properties
 	AHGWeapon();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
 public:
 	// Spawn location for the bullets.
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)

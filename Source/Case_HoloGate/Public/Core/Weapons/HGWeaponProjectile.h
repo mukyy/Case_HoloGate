@@ -36,7 +36,6 @@ public:
 	// Sets default values for this actor's properties
 	AHGWeaponProjectile();
 
-
 private:
 	UPROPERTY(EditDefaultsOnly)
 	UProjectileMovementComponent* ProjectileMovement;
@@ -44,17 +43,7 @@ private:
 	// Value must be coming from the weapon this projectile is fired from.
 	float Damage;
 	
-	// Trace channel used to find hit actors.
-	UPROPERTY(EditDefaultsOnly)
-	TEnumAsByte<ECollisionChannel> TraceChannel;
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
 public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 	
 	UFUNCTION(BlueprintCallable)
 	UProjectileMovementComponent* GetProjectileMovement() const;
@@ -63,10 +52,10 @@ public:
 	float GetDamage() const;
 
 	UFUNCTION(BlueprintCallable)
-	void SetDamage(float NewValue);
+	void SetDamage(float newValue);
 
 	UFUNCTION(BlueprintCallable)
-	void ProjectileSpawned(FVector ProjectileVelocity);
+	void ProjectileSpawned(FVector projectileVelocity);
 
 	UFUNCTION(BlueprintCallable)
 	void Explode();

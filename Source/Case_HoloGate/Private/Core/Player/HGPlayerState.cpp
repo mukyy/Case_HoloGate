@@ -19,6 +19,7 @@ void AHGPlayerState::StartRespawnTimer()
 
 void AHGPlayerState::Respawn()
 {
+	//TODO: Carry over to gamestate or gamemode preferably.
 	if (!HasAuthority())
 	{
 		return;	

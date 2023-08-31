@@ -12,10 +12,3 @@ AHGWeapon::AHGWeapon()
 
 	SetReplicates(true);
 }
-
-// Called when the game starts or when spawned
-void AHGWeapon::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}

@@ -22,36 +22,33 @@ void UHGAttributesComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty
 	DOREPLIFETIME(UHGAttributesComponent, Attributes);
 }
 
-int32 UHGAttributesComponent::GetAttributeIndex(const FGameplayTag& Attribute) const
+int32 UHGAttributesComponent::GetAttributeIndex(const FGameplayTag& attribute) const
 {
-	const int32 attributeIndex  = Attributes.IndexOfByKey<FGameplayTag>(Attribute);
+	const int32 attributeIndex  = Attributes.IndexOfByKey<FGameplayTag>(attribute);
 
 	if (attributeIndex == -1)
 	{
-		UE_LOG(LogHGDebug, Display, TEXT("%s actor does not have %s attribute"), *GetOwner()->GetName(), *Attribute.ToString())
+		UE_LOG(LogHGDebug, Display, TEXT("%s actor does not have %s attribute"), *GetOwner()->GetName(), *attribute.ToString())
 		return -1.f;
 	}
 	return attributeIndex;
 }
 
-void UHGAttributesComponent::OnRep_Attributes_Implementation() const
+
+void UHGAttributesComponent::Server_SetAttributeValue_Implementation(const FGameplayTag& attribute, float newValue)
 {
+	SetAttributeValue(attribute, newValue);
 }
 
-void UHGAttributesComponent::Server_SetAttributeValue_Implementation(const FGameplayTag& Attribute, float NewValue)
-{
-	SetAttributeValue(Attribute, NewValue);
-}
-
-void UHGAttributesComponent::SetAttributeValue(const FGameplayTag& Attribute, float NewValue)
+void UHGAttributesComponent::SetAttributeValue(const FGameplayTag& attribute, float newValue)
 {
 	if (GetOwnerRole() != ROLE_Authority)
 	{
-		Server_SetAttributeValue(Attribute, NewValue);
+		Server_SetAttributeValue(attribute, newValue);
 	}
 	// Continues the flow for client as well so value changes are responsive.
 
-	const int32 attributeIndex = GetAttributeIndex(Attribute);
+	const int32 attributeIndex = GetAttributeIndex(attribute);
 	
 	if (attributeIndex == -1)
 	{
@@ -61,23 +58,17 @@ void UHGAttributesComponent::SetAttributeValue(const FGameplayTag& Attribute, fl
 	// TODO: Find a better flow.
 	FAttribute& attributeRef = Attributes[attributeIndex];
 	const float oldValue = attributeRef.Value;
-	NewValue = FMath::Clamp(NewValue, attributeRef.MinMaxValue.X, attributeRef.MinMaxValue.Y);
-	Attributes[attributeIndex].Value = NewValue;
+	newValue = FMath::Clamp(newValue, attributeRef.MinMaxValue.X, attributeRef.MinMaxValue.Y);
+	Attributes[attributeIndex].Value = newValue;
 	
-	OnAttributeChanged.Broadcast(Attribute, oldValue, NewValue);
+	OnAttributeChanged.Broadcast(attribute, oldValue, newValue);
 
-	// TODO: Not sure about this.
-	// OnRep events are not fired on server so we force it if the we are on server side.
-	if (GetOwnerRole() == ROLE_Authority)
-	{
-		OnRep_Attributes();
-	}
 }
 
-void UHGAttributesComponent::ModifyAttribute(const FGameplayTag& Attribute, float Amount)
+void UHGAttributesComponent::ModifyAttribute(const FGameplayTag& attribute, float amount)
 {
-	const float modifiedValue = GetAttribute(Attribute).Value + Amount;
-	SetAttributeValue(Attribute, modifiedValue);
+	const float modifiedValue = GetAttribute(attribute).Value + amount;
+	SetAttributeValue(attribute, modifiedValue);
 }
 
 void UHGAttributesComponent::ForceBroadcastAttributes()
@@ -88,9 +79,9 @@ void UHGAttributesComponent::ForceBroadcastAttributes()
 	}
 }
 
-FAttribute UHGAttributesComponent::GetAttribute(const FGameplayTag& Attribute) const
+FAttribute UHGAttributesComponent::GetAttribute(const FGameplayTag& attribute) const
 {
-	const int32 attributeIndex = GetAttributeIndex(Attribute);
+	const int32 attributeIndex = GetAttributeIndex(attribute);
 
 	// Avoid access to array if index is not found.
 	if (attributeIndex == -1)

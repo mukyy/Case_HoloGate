@@ -17,7 +17,6 @@ UHGWeaponComponent::UHGWeaponComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 	SetIsReplicatedByDefault(true);
-	bIsFiringInputHeld = false;
 }
 
 void UHGWeaponComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -43,10 +42,11 @@ void UHGWeaponComponent::BeginPlay()
 void UHGWeaponComponent::OnComponentDestroyed(bool bDestroyingHierarchy)
 {
 	Super::OnComponentDestroyed(bDestroyingHierarchy);
+	
 	if (HasEquippedWeapon())
 	{
+		// Destroy our spawned weapon instance when being destroyed.
 		GetWeaponInstance()->Destroy();
-		
 	}
 }
 
@@ -115,7 +115,6 @@ UHGWeaponData* UHGWeaponComponent::GetCurrentWeaponData() const
 		UE_LOG(LogHGDebug, Warning, TEXT("Tried accessing weapon data when no weapon data was present."));
 		return nullptr;
 	}
-
 	return CurrentWeaponData;
 }
 
@@ -127,10 +126,6 @@ void UHGWeaponComponent::Server_EquipNewWeapon_Implementation(UHGWeaponData* new
 void UHGWeaponComponent::Server_UnequipCurrentWeapon_Implementation()
 {
 	UnequipCurrentWeapon();
-}
-
-void UHGWeaponComponent::OnRep_WeaponInstance()
-{
 }
 
 void UHGWeaponComponent::OnRep_IsFiringInputHeld()
@@ -171,14 +166,14 @@ USceneComponent* UHGWeaponComponent::GetWeaponSocketComponent() const
 	return WeaponSocketComponent;
 }
 
-void UHGWeaponComponent::SetWeaponSocketComponent(USceneComponent* WeaponSocket)
+void UHGWeaponComponent::SetWeaponSocketComponent(USceneComponent* weaponSocket)
 {
-	if (WeaponSocket == nullptr)
+	if (weaponSocket == nullptr)
 	{
 		UE_LOG(LogHG, Error, TEXT("Weapon Socket component was null when trying to set it."))
 		return;
 	}
-	WeaponSocketComponent = WeaponSocket;
+	WeaponSocketComponent = weaponSocket;
 }
 
 FRotator UHGWeaponComponent::GetDesiredAimRotation() const
@@ -267,29 +262,19 @@ AHGWeapon* UHGWeaponComponent::GetWeaponInstance() const
 
 void UHGWeaponComponent::Fire_Implementation()
 {
-	if (!CanKeepFiring())
+	if (!CanKeepFiring() ||
+		GetCurrentWeaponData() == nullptr ||
+		GetCurrentWeaponData()->WeaponData.FiringData.ProjectileClass == nullptr ||
+		WeaponInstance == nullptr)
 	{
 		StopFiring();
 		return;
 	}
 
-	if (GetCurrentWeaponData() == nullptr)
-	{
-		return;
-	}
-	
-	if (GetCurrentWeaponData()->WeaponData.FiringData.ProjectileClass == nullptr)
-	{
-		return;
-	}
-
-	if (WeaponInstance == nullptr)
-	{
-		return;
-	}
 	AHGWeaponProjectile* spawnedProjectile = GetWorld()->SpawnActor<AHGWeaponProjectile>(GetCurrentWeaponData()->WeaponData.FiringData.ProjectileClass, WeaponInstance->GetMuzzleLocation(), FRotator::ZeroRotator);
 	FVector velocity = GetWeaponSocketComponent()->GetForwardVector() * GetCurrentWeaponData()->WeaponData.FiringData.ProjectileSpeed;
 	velocity.Z = 0.0f;
+
 	spawnedProjectile->ProjectileSpawned(velocity);
 	spawnedProjectile->SetDamage(GetCurrentWeaponData()->WeaponData.FiringData.Damage);
 	spawnedProjectile->SetInstigator(GetOwnerCharacter());
@@ -305,12 +290,8 @@ void UHGWeaponComponent::Server_StartFiring_Implementation()
 
 void UHGWeaponComponent::StartFiring()
 {
-	if (!HasEquippedWeapon())
-	{
-		return;
-	}
-	
-	if (!CanStartFiring())
+	if (!HasEquippedWeapon() ||
+		!CanStartFiring())
 	{
 		return;
 	}
@@ -323,7 +304,6 @@ void UHGWeaponComponent::StartFiring()
 	bIsFiringInputHeld = true;
 	Fire();
 }
-
 
 void UHGWeaponComponent::Server_StopFiring_Implementation()
 {
@@ -342,9 +322,7 @@ void UHGWeaponComponent::StopFiring()
 bool UHGWeaponComponent::CanStartFiring()
 {
 	bool canStartFire = true;
-
 	canStartFire = !GetWorld()->GetTimerManager().IsTimerActive(FiringHandle);
-	
 	return canStartFire;
 }
 
@@ -352,7 +330,6 @@ bool UHGWeaponComponent::CanKeepFiring()
 {
 	bool canFire = true;
 	canFire = bIsFiringInputHeld;
-
 	return canFire;
 }
 

@@ -28,7 +28,10 @@ class CASE_HOLOGATE_API AHGCharacter : public ACharacter
 public:
 	// Sets default values for this pawn's properties
 	AHGCharacter(const FObjectInitializer& ObjectInitializer);
-
+	
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
 private:
 	// Spawned weapon visuals gets attached to it, acts as a socket.
 	UPROPERTY(EditDefaultsOnly)
@@ -45,6 +48,13 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly)
 	UHGWeaponComponent* WeaponComponent;
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintCallable)
+	void SetWeaponComponent(UHGWeaponComponent* weaponComponentRef);
 	
 public:
 	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
@@ -67,17 +77,4 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
 	UHGWeaponComponent* GetWeaponComponent() const;
-
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-	UFUNCTION(BlueprintCallable)
-	void SetWeaponComponent(UHGWeaponComponent* WeaponComponentRef);
-	
-public:
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 };

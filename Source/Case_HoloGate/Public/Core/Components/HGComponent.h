@@ -16,7 +16,4 @@ class CASE_HOLOGATE_API UHGComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
-	UHGComponent();
-
 };

@@ -21,6 +21,8 @@ class CASE_HOLOGATE_API UHGWeaponComponent : public UHGPawnComponent
 	
 public:
 	UHGWeaponComponent();
+
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
 private:
 	UFUNCTION(Server, Reliable)
@@ -38,13 +40,14 @@ private:
 	UPROPERTY()
 	USceneComponent* WeaponSocketComponent;
 	
-	UPROPERTY(ReplicatedUsing=OnRep_WeaponInstance)
+	UPROPERTY(Replicated)
 	AHGWeapon* WeaponInstance;
 
 	// Controls base interp speed for weapon rotation.
 	UPROPERTY(EditDefaultsOnly)
 	float RotationInterpSpeed = 700.0f;
-	
+
+	// Default weapon to start the game with.
 	UPROPERTY(EditDefaultsOnly)
 	UHGWeaponData* DefaultWeaponData = nullptr;
 
@@ -55,18 +58,17 @@ private:
 
 	FTimerHandle FiringHandle;
 
+	// OnRep is used to avoid RPC calls so when this value is changed on other characters that are not local, they will start firing visuals.
 	UPROPERTY(ReplicatedUsing=OnRep_IsFiringInputHeld)
 	bool bIsFiringInputHeld = false;
 	
 protected:
 	virtual void BeginPlay() override;
+	
 	virtual void OnComponentDestroyed(bool bDestroyingHierarchy) override;
 	
 	UFUNCTION(BlueprintCallable)
 	AHGWeapon* GetWeaponInstance() const;
-
-	UFUNCTION()
-	void OnRep_WeaponInstance();
 
 	UFUNCTION()
 	void OnRep_IsFiringInputHeld();
@@ -77,12 +79,11 @@ protected:
 	// Cosmetic events can be set up in blueprint side. Gets called every time weapon is fired.
 	UFUNCTION(BlueprintNativeEvent)
 	void Fire();
+
 	
 	UPROPERTY(Replicated, VisibleInstanceOnly)
 	UHGWeaponData* CurrentWeaponData = nullptr;
 public:
-
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable)
 	bool IsFiringInputHeld() const;
@@ -94,7 +95,7 @@ public:
 	USceneComponent* GetWeaponSocketComponent() const;
 
 	UFUNCTION(BlueprintCallable)
-	void SetWeaponSocketComponent(USceneComponent* WeaponSocket);
+	void SetWeaponSocketComponent(USceneComponent* weaponSocket);
 
 	UFUNCTION(BlueprintCallable)
 	FRotator GetDesiredAimRotation() const;
@@ -129,5 +130,4 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool IsFiring() const;
-
 };

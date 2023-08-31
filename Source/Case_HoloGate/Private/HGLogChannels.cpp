@@ -6,7 +6,7 @@
 DEFINE_LOG_CATEGORY(LogHG);
 DEFINE_LOG_CATEGORY(LogHGDebug);
 
-void Error_MissingComponent(TSubclassOf<UActorComponent> ComponentClass)
+void Error_MissingComponent(TSubclassOf<UActorComponent> componentClass)
 {
-	UE_LOG(LogHG, Error, TEXT("%s component is missing!"), *ComponentClass->GetDisplayNameText().ToString());
+	UE_LOG(LogHG, Error, TEXT("%s component is missing!"), *componentClass->GetDisplayNameText().ToString());
 }
