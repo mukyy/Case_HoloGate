@@ -28,12 +28,19 @@ private:
 
 	UFUNCTION(Server, Reliable)
 	void Server_UnequipCurrentWeapon();
-
+	
+	UFUNCTION(Server, Reliable)
+	void Server_StartFiring();
+	
+	UFUNCTION(Server, Reliable)
+	void Server_StopFiring();
+	
 	UPROPERTY()
 	USceneComponent* WeaponSocketComponent;
 	
 	UPROPERTY(ReplicatedUsing=OnRep_WeaponInstance)
 	AHGWeapon* WeaponInstance;
+
 
 	// Controls base interp speed for weapon rotation.
 	UPROPERTY(EditDefaultsOnly)
@@ -48,6 +55,11 @@ private:
 	// Player controllers are not shared to other clients, DesiredAimRotation helps us replicate this value to other clients too.
 	UPROPERTY(Replicated, VisibleInstanceOnly)
 	FRotator DesiredAimRotation;
+
+	FTimerHandle FiringHandle;
+
+	UPROPERTY(Replicated)
+	bool bIsFiringInputHeld;
 	
 protected:
 	virtual void BeginPlay() override;
@@ -61,10 +73,17 @@ protected:
 	// Calculates interp speed based on BaseRotationSpeed & Weapon rotation penalty.
 	float CalculateRotationInterpSpeed() const;
 
+	// Cosmetic events can be set up in blueprint side. Gets called every time weapon is fired.
+	UFUNCTION(BlueprintNativeEvent)
+	void Fire();
+	
 public:
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UFUNCTION(BlueprintCallable)
+	bool IsFiringInputHeld() const;
+	
 	UFUNCTION(BlueprintCallable)
 	UHGWeaponData* GetCurrentWeaponData() const;
 
@@ -90,4 +109,21 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void UnequipCurrentWeapon();
+
+	UFUNCTION(BlueprintCallable)
+	void StartFiring();
+
+	UFUNCTION(BlueprintCallable)
+	void StopFiring();
+
+	UFUNCTION(BlueprintCallable)
+	bool CanStartFiring();
+
+	// Controls how Fire function is called recursively. Beware!
+	UFUNCTION(BlueprintCallable)
+	bool CanKeepFiring();
+
+	UFUNCTION(BlueprintCallable)
+	bool IsFiring() const;
+
 };

@@ -10,9 +10,11 @@
     <list default="true" id="bee2202a-66cd-4f12-96b8-3eb3b3020e53" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Case_HoloGate/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Case_HoloGate/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/_HoloGate/Core/Character/BP_Character.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_HoloGate/Core/Character/BP_Character.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGAttributesComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGAttributesComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/_HoloGate/Core/Weapons/DA_Weapon_Default.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_HoloGate/Core/Weapons/DA_Weapon_Default.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/_HoloGate/Core/Weapons/Projectiles/BP_Projectile_Default.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_HoloGate/Core/Weapons/Projectiles/BP_Projectile_Default.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/_HoloGate/Input/IMC_Character.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_HoloGate/Input/IMC_Character.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Character/HGCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Character/HGCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGWeaponComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGWeaponComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGAttributesComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGAttributesComponent.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGWeaponComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGWeaponComponent.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -131,7 +133,7 @@
       <updated>1693413991239</updated>
       <workItem from="1693413992379" duration="6116000" />
       <workItem from="1693482274006" duration="5689000" />
-      <workItem from="1693488678987" duration="2028000" />
+      <workItem from="1693488678987" duration="7645000" />
     </task>
     <servers />
   </component>

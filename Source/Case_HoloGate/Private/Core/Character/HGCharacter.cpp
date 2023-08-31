@@ -28,7 +28,8 @@ AHGCharacter::AHGCharacter(const FObjectInitializer& ObjectInitializer)
 	CameraComponent->AttachToComponent(SpringArmComponent, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	
 	AttributesComponent = CreateDefaultSubobject<UHGAttributesComponent>(FName("Attributes Component"));
-	WeaponComponent = CreateDefaultSubobject<UHGWeaponComponent>(FName("Weapon Component"));
+
+	WeaponComponent  = CreateDefaultSubobject<UHGWeaponComponent>(FName("Weapon Component"));
 	WeaponComponent->SetWeaponSocketComponent(WeaponSocketComponent);
 }
 

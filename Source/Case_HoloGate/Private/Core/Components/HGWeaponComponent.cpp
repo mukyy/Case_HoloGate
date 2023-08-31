@@ -15,6 +15,7 @@ UHGWeaponComponent::UHGWeaponComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 	SetIsReplicatedByDefault(true);
+	bIsFiringInputHeld = false;
 }
 
 void UHGWeaponComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -23,8 +24,9 @@ void UHGWeaponComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 
 	DOREPLIFETIME(UHGWeaponComponent, WeaponInstance);
 	DOREPLIFETIME(UHGWeaponComponent, CurrentWeaponData);
+	DOREPLIFETIME(UHGWeaponComponent, bIsFiringInputHeld);
 	
-	// We dont need to know this since we are setting it directly with inputs.
+	// We dont need to know this since we are setting these directly with inputs.
 	DOREPLIFETIME_CONDITION(UHGWeaponComponent, DesiredAimRotation, COND_SkipOwner);
 
 }
@@ -81,6 +83,11 @@ void UHGWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	}
 }
 
+bool UHGWeaponComponent::IsFiringInputHeld() const
+{
+	return bIsFiringInputHeld;
+}
+
 UHGWeaponData* UHGWeaponComponent::GetCurrentWeaponData() const
 {
 	if (CurrentWeaponData == nullptr)
@@ -117,6 +124,8 @@ float UHGWeaponComponent::CalculateRotationInterpSpeed() const
 	
 	return RotationInterpSpeed * weaponData->WeaponData.HandleData.RotationSpeedModifier; 
 }
+
+
 
 USceneComponent* UHGWeaponComponent::GetWeaponSocketComponent() const
 {
@@ -221,4 +230,79 @@ AHGWeapon* UHGWeaponComponent::GetWeaponInstance() const
 		return nullptr;
 	}
 	return WeaponInstance;
+}
+
+void UHGWeaponComponent::Fire_Implementation()
+{
+	if (!CanKeepFiring())
+	{
+		StopFiring();
+		return;
+	}
+
+	// Calls itself recursively
+	GetWorld()->GetTimerManager().SetTimer(FiringHandle, this, &UHGWeaponComponent::Fire, GetCurrentWeaponData()->WeaponData.FiringData.FireRate, false);
+}
+
+void UHGWeaponComponent::Server_StartFiring_Implementation()
+{
+	StartFiring();
+}
+
+void UHGWeaponComponent::Server_StopFiring_Implementation()
+{
+	StopFiring();
+}
+
+void UHGWeaponComponent::StartFiring()
+{
+	if (!HasEquippedWeapon())
+	{
+		return;
+	}
+	
+	if (!CanStartFiring())
+	{
+		return;
+	}
+	
+	if (GetOwnerRole() != ROLE_Authority)
+	{
+		Server_StartFiring();
+	}
+
+
+	bIsFiringInputHeld = true;
+	Fire();
+}
+
+void UHGWeaponComponent::StopFiring()
+{
+	if (GetOwnerRole() != ROLE_Authority)
+	{
+		Server_StopFiring();
+	}
+	bIsFiringInputHeld = false;
+}
+
+bool UHGWeaponComponent::CanStartFiring()
+{
+	bool canStartFire = true;
+
+	canStartFire = !GetWorld()->GetTimerManager().IsTimerActive(FiringHandle);
+	
+	return canStartFire;
+}
+
+bool UHGWeaponComponent::CanKeepFiring()
+{
+	bool canFire = true;
+	canFire = bIsFiringInputHeld;
+
+	return canFire;
+}
+
+bool UHGWeaponComponent::IsFiring() const
+{
+	return GetWorld()->GetTimerManager().IsTimerActive(FiringHandle);
 }
