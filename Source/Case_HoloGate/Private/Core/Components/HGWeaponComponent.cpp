@@ -50,6 +50,11 @@ void UHGWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	{
 		return;
 	}
+
+	if (GetWeaponSocketComponent() == nullptr)
+	{
+		return;
+	}
 	
 	if (GetOwnerCharacter()->IsLocallyControlled())
 	{
@@ -57,7 +62,8 @@ void UHGWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 		FRotator currentRotation = pc->GetControlRotation();
 		FHitResult cursorHitResult;
 		pc->GetHitResultUnderCursorByChannel(UEngineTypes::ConvertToTraceType(ECC_Visibility), true, cursorHitResult);
-		
+
+	
 		FRotator targetRotation = UKismetMathLibrary::FindLookAtRotation(GetWeaponSocketComponent()->GetComponentLocation(), cursorHitResult.Location);
 
 		// So we only use yaw values since we have top down tanks.
