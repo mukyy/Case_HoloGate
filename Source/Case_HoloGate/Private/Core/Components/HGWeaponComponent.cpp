@@ -20,8 +20,6 @@ UHGWeaponComponent::UHGWeaponComponent()
 	bIsFiringInputHeld = false;
 }
 
-
-
 void UHGWeaponComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -40,6 +38,16 @@ void UHGWeaponComponent::BeginPlay()
 	Super::BeginPlay();
 
 	EquipNewWeapon(DefaultWeaponData);
+}
+
+void UHGWeaponComponent::OnComponentDestroyed(bool bDestroyingHierarchy)
+{
+	Super::OnComponentDestroyed(bDestroyingHierarchy);
+	if (HasEquippedWeapon())
+	{
+		GetWeaponInstance()->Destroy();
+		
+	}
 }
 
 void UHGWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -264,6 +272,27 @@ void UHGWeaponComponent::Fire_Implementation()
 		StopFiring();
 		return;
 	}
+
+	if (GetCurrentWeaponData() == nullptr)
+	{
+		return;
+	}
+	
+	if (GetCurrentWeaponData()->WeaponData.FiringData.ProjectileClass == nullptr)
+	{
+		return;
+	}
+
+	if (WeaponInstance == nullptr)
+	{
+		return;
+	}
+	AHGWeaponProjectile* spawnedProjectile = GetWorld()->SpawnActor<AHGWeaponProjectile>(GetCurrentWeaponData()->WeaponData.FiringData.ProjectileClass, WeaponInstance->GetMuzzleLocation(), FRotator::ZeroRotator);
+	FVector velocity = GetWeaponSocketComponent()->GetForwardVector() * GetCurrentWeaponData()->WeaponData.FiringData.ProjectileSpeed;
+	velocity.Z = 0.0f;
+	spawnedProjectile->ProjectileSpawned(velocity);
+	spawnedProjectile->SetDamage(GetCurrentWeaponData()->WeaponData.FiringData.Damage);
+	spawnedProjectile->SetInstigator(GetOwnerCharacter());
 
 	// Calls itself recursively
 	GetWorld()->GetTimerManager().SetTimer(FiringHandle, this, &UHGWeaponComponent::Fire, GetCurrentWeaponData()->WeaponData.FiringData.FireRate, false);

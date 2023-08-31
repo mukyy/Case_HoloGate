@@ -18,7 +18,7 @@ struct FProjectileData
 	
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnProjectileExploded, TArray<AActor*>, HitActors);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnProjectileExploded, TArray<FOverlapResult>, HitResults);
 
 /**
  * AHGWeaponProjectile
@@ -52,20 +52,24 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+public:
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+	
 	UFUNCTION(BlueprintCallable)
 	UProjectileMovementComponent* GetProjectileMovement() const;
-	
+
 	UFUNCTION(BlueprintCallable)
 	float GetDamage() const;
 
 	UFUNCTION(BlueprintCallable)
 	void SetDamage(float NewValue);
 
-public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 	UFUNCTION(BlueprintCallable)
 	void ProjectileSpawned(FVector ProjectileVelocity);
+
+	UFUNCTION(BlueprintCallable)
+	void Explode();
 
 	UPROPERTY(BlueprintAssignable)
 	FOnProjectileExploded OnProjectileExploded;

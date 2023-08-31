@@ -10,9 +10,20 @@
     <list default="true" id="bee2202a-66cd-4f12-96b8-3eb3b3020e53" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Case_HoloGate/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Case_HoloGate/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/_HoloGate/Core/Character/BP_Character.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_HoloGate/Core/Character/BP_Character.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_HoloGate/Core/Weapons/BP_Weapon_Default.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_HoloGate/Core/Weapons/BP_Weapon_Default.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/_HoloGate/Core/Components/BP_WeaponComponent.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_HoloGate/Core/Components/BP_WeaponComponent.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/_HoloGate/Core/Player/BP_HGPlayerState.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_HoloGate/Core/Player/BP_HGPlayerState.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/_HoloGate/Core/Weapons/DA_Weapon_Default.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_HoloGate/Core/Weapons/DA_Weapon_Default.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/_HoloGate/Core/Weapons/Projectiles/BP_Projectile_Default.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_HoloGate/Core/Weapons/Projectiles/BP_Projectile_Default.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Character/HGCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Character/HGCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGAttributesComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGAttributesComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGWeaponComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGWeaponComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Player/HGPlayerState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Player/HGPlayerState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Weapons/HGWeaponProjectile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Weapons/HGWeaponProjectile.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Character/HGCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Character/HGCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGAttributesComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGAttributesComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGWeaponComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGWeaponComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Player/HGPlayerState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Player/HGPlayerState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Weapons/HGWeaponProjectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Weapons/HGWeaponProjectile.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +34,51 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Epic_Unreal/UE_5.2/Engine/Source/Runtime/Engine/Private/Components/CharacterMovementComponent.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGWeaponComponent.h" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -132,7 +188,7 @@
       <workItem from="1693482274006" duration="5689000" />
       <workItem from="1693488678987" duration="8766000" />
       <workItem from="1693497875915" duration="2075000" />
-      <workItem from="1693500057576" duration="1471000" />
+      <workItem from="1693500057576" duration="8555000" />
     </task>
     <servers />
   </component>

@@ -48,8 +48,6 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UHGWeaponData* DefaultWeaponData = nullptr;
 
-	UPROPERTY(Replicated, VisibleInstanceOnly)
-	UHGWeaponData* CurrentWeaponData = nullptr;
 
 	// Player controllers are not shared to other clients, DesiredAimRotation helps us replicate this value to other clients too.
 	UPROPERTY(Replicated, VisibleInstanceOnly)
@@ -62,6 +60,7 @@ private:
 	
 protected:
 	virtual void BeginPlay() override;
+	virtual void OnComponentDestroyed(bool bDestroyingHierarchy) override;
 	
 	UFUNCTION(BlueprintCallable)
 	AHGWeapon* GetWeaponInstance() const;
@@ -79,6 +78,8 @@ protected:
 	UFUNCTION(BlueprintNativeEvent)
 	void Fire();
 	
+	UPROPERTY(Replicated, VisibleInstanceOnly)
+	UHGWeaponData* CurrentWeaponData = nullptr;
 public:
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;

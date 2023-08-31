@@ -68,10 +68,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "HoloGate|Character")
 	UHGWeaponComponent* GetWeaponComponent() const;
 
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UFUNCTION(BlueprintCallable)
+	void SetWeaponComponent(UHGWeaponComponent* WeaponComponentRef);
+	
 public:
 
 	// Called to bind functionality to input

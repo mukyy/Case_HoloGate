@@ -15,4 +15,12 @@ UCLASS(Blueprintable, Meta = (ShortTooltip = "The base player state class used b
 class CASE_HOLOGATE_API AHGPlayerState : public APlayerState
 {
 	GENERATED_BODY()
+
+public:
+	UFUNCTION(BlueprintCallable)
+	void Killed();
+	void StartRespawnTimer();
+	void Respawn();
+
+	FTimerHandle RespawnHandle;
 };

@@ -80,6 +80,14 @@ void UHGAttributesComponent::ModifyAttribute(const FGameplayTag& Attribute, floa
 	SetAttributeValue(Attribute, modifiedValue);
 }
 
+void UHGAttributesComponent::ForceBroadcastAttributes()
+{
+	for (FAttribute attribute : Attributes)
+	{
+		OnAttributeChanged.Broadcast(attribute.AttributeTag, attribute.Value, attribute.Value);
+	}
+}
+
 FAttribute UHGAttributesComponent::GetAttribute(const FGameplayTag& Attribute) const
 {
 	const int32 attributeIndex = GetAttributeIndex(Attribute);

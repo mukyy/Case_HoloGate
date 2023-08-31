@@ -44,6 +44,7 @@ class CASE_HOLOGATE_API UHGAttributesComponent : public UHGComponent
 public:
 	UHGAttributesComponent();
 
+
 protected:
 	// Finds index of the FAttribute struct inside OwnedAttributes using Attribute`s tag.
 	UFUNCTION(BlueprintCallable)
@@ -58,6 +59,9 @@ protected:
 	UPROPERTY(ReplicatedUsing=OnRep_Attributes, EditDefaultsOnly, BlueprintReadOnly)
 	TArray<FAttribute> Attributes;
 public:
+	// Calls OnAttributeChanged event on all attributes to notify listeners at once.
+	UFUNCTION(BlueprintCallable)
+	void ForceBroadcastAttributes();
 
 	UFUNCTION(BlueprintCallable)
 	FAttribute GetAttribute(const FGameplayTag& Attribute) const;
@@ -65,6 +69,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetAttributeValue(const FGameplayTag& Attribute, float NewValue);
 
+	// Can be used to send raw modifying amount which then gets added to attribute for result. e.g: Value + Amount. Amount can be both negative and positive, negative acts as a damage and positive as restoration.
 	UFUNCTION(BlueprintCallable)
 	void ModifyAttribute(const FGameplayTag& Attribute, float Amount);
 
