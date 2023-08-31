@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "HGWeaponProjectile.generated.h"
 
+class UProjectileMovementComponent;
+
 USTRUCT(BlueprintType)
 struct FProjectileData
 {
@@ -34,7 +36,11 @@ public:
 	// Sets default values for this actor's properties
 	AHGWeaponProjectile();
 
+
 private:
+	UPROPERTY(EditDefaultsOnly)
+	UProjectileMovementComponent* ProjectileMovement;
+
 	// Value must be coming from the weapon this projectile is fired from.
 	float Damage;
 	
@@ -47,6 +53,9 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintCallable)
+	UProjectileMovementComponent* GetProjectileMovement() const;
+	
+	UFUNCTION(BlueprintCallable)
 	float GetDamage() const;
 
 	UFUNCTION(BlueprintCallable)
@@ -55,6 +64,8 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	UFUNCTION(BlueprintCallable)
+	void ProjectileSpawned(FVector ProjectileVelocity);
 
 	UPROPERTY(BlueprintAssignable)
 	FOnProjectileExploded OnProjectileExploded;

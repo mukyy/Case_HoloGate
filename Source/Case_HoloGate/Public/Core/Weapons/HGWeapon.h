@@ -25,4 +25,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+public:
+	// Spawn location for the bullets.
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	FVector GetMuzzleLocation() const;
 };

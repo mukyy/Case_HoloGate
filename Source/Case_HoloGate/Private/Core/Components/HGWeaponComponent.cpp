@@ -8,7 +8,9 @@
 #include "Core/Player/HGPlayerController.h"
 #include "Core/Weapons/HGWeapon.h"
 #include "Core/Weapons/HGWeaponData.h"
+#include "Core/Weapons/HGWeaponProjectile.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "Net/UnrealNetwork.h"
 
 UHGWeaponComponent::UHGWeaponComponent()
@@ -17,6 +19,8 @@ UHGWeaponComponent::UHGWeaponComponent()
 	SetIsReplicatedByDefault(true);
 	bIsFiringInputHeld = false;
 }
+
+
 
 void UHGWeaponComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
@@ -66,6 +70,10 @@ void UHGWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 		pc->SetControlRotation(interpolatedRotation);
 		// However set the rotation of the weapon instantly if we are the local player for responsiveness.
 		GetWeaponSocketComponent()->SetWorldRotation(interpolatedRotation);
+		if (GetOwner()->HasAuthority())
+		{
+			SetDesiredAimRotation(GetOwnerCharacter()->GetHGPlayerController()->GetControlRotation());
+		}
 	}
 	// Other players
 	else
@@ -74,12 +82,10 @@ void UHGWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 		{
 			SetDesiredAimRotation(GetOwnerCharacter()->GetHGPlayerController()->GetControlRotation());
 		}
-		else
-		{
-			// Smoothen the rotation on clients.
-			FRotator interpolatedRotation = UKismetMathLibrary::RInterpTo_Constant(GetWeaponSocketComponent()->GetComponentRotation(), GetDesiredAimRotation(), DeltaTime, CalculateRotationInterpSpeed());
-			GetWeaponSocketComponent()->SetWorldRotation(DesiredAimRotation);
-		}
+		
+		// Smoothen the rotation on clients.
+		FRotator interpolatedRotation = UKismetMathLibrary::RInterpTo_Constant(GetWeaponSocketComponent()->GetComponentRotation(), GetDesiredAimRotation(), DeltaTime, CalculateRotationInterpSpeed());
+		GetWeaponSocketComponent()->SetWorldRotation(interpolatedRotation);
 	}
 }
 
@@ -111,6 +117,19 @@ void UHGWeaponComponent::Server_UnequipCurrentWeapon_Implementation()
 
 void UHGWeaponComponent::OnRep_WeaponInstance()
 {
+}
+
+void UHGWeaponComponent::OnRep_IsFiringInputHeld()
+{
+	if (!GetOwnerCharacter()->IsLocallyControlled())
+	{
+		if (!IsFiringInputHeld())
+		{
+			StopFiring();
+			return;
+		}
+		Fire();
+	}
 }
 
 float UHGWeaponComponent::CalculateRotationInterpSpeed() const
@@ -249,11 +268,6 @@ void UHGWeaponComponent::Server_StartFiring_Implementation()
 	StartFiring();
 }
 
-void UHGWeaponComponent::Server_StopFiring_Implementation()
-{
-	StopFiring();
-}
-
 void UHGWeaponComponent::StartFiring()
 {
 	if (!HasEquippedWeapon())
@@ -271,9 +285,14 @@ void UHGWeaponComponent::StartFiring()
 		Server_StartFiring();
 	}
 
-
 	bIsFiringInputHeld = true;
 	Fire();
+}
+
+
+void UHGWeaponComponent::Server_StopFiring_Implementation()
+{
+	StopFiring();
 }
 
 void UHGWeaponComponent::StopFiring()

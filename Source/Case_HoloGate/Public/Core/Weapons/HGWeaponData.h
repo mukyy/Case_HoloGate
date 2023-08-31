@@ -49,6 +49,9 @@ struct FWeaponFiringData
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSubclassOf<AHGWeaponProjectile> ProjectileClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float ProjectileSpeed = 1000.0f;
 };
 
 USTRUCT(BlueprintType)

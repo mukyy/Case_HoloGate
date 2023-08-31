@@ -28,9 +28,6 @@ AHGCharacter::AHGCharacter(const FObjectInitializer& ObjectInitializer)
 	CameraComponent->AttachToComponent(SpringArmComponent, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	
 	AttributesComponent = CreateDefaultSubobject<UHGAttributesComponent>(FName("Attributes Component"));
-
-	WeaponComponent  = CreateDefaultSubobject<UHGWeaponComponent>(FName("Weapon Component"));
-	WeaponComponent->SetWeaponSocketComponent(WeaponSocketComponent);
 }
 
 // Called when the game starts or when spawned
@@ -38,6 +35,11 @@ void AHGCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	WeaponComponent = FindComponentByClass<UHGWeaponComponent>();
+	if (WeaponComponent)
+	{
+		WeaponComponent->SetWeaponSocketComponent(WeaponSocketComponent);
+	}
 }
 
 // Called to bind functionality to input

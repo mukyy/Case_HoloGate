@@ -31,7 +31,7 @@ private:
 	
 	UFUNCTION(Server, Reliable)
 	void Server_StartFiring();
-	
+
 	UFUNCTION(Server, Reliable)
 	void Server_StopFiring();
 	
@@ -41,25 +41,24 @@ private:
 	UPROPERTY(ReplicatedUsing=OnRep_WeaponInstance)
 	AHGWeapon* WeaponInstance;
 
-
 	// Controls base interp speed for weapon rotation.
 	UPROPERTY(EditDefaultsOnly)
 	float RotationInterpSpeed = 700.0f;
 	
 	UPROPERTY(EditDefaultsOnly)
-	UHGWeaponData* DefaultWeaponData;
+	UHGWeaponData* DefaultWeaponData = nullptr;
 
 	UPROPERTY(Replicated, VisibleInstanceOnly)
-	UHGWeaponData* CurrentWeaponData;
+	UHGWeaponData* CurrentWeaponData = nullptr;
 
 	// Player controllers are not shared to other clients, DesiredAimRotation helps us replicate this value to other clients too.
 	UPROPERTY(Replicated, VisibleInstanceOnly)
-	FRotator DesiredAimRotation;
+	FRotator DesiredAimRotation = FRotator();
 
 	FTimerHandle FiringHandle;
 
-	UPROPERTY(Replicated)
-	bool bIsFiringInputHeld;
+	UPROPERTY(ReplicatedUsing=OnRep_IsFiringInputHeld)
+	bool bIsFiringInputHeld = false;
 	
 protected:
 	virtual void BeginPlay() override;
@@ -69,6 +68,9 @@ protected:
 
 	UFUNCTION()
 	void OnRep_WeaponInstance();
+
+	UFUNCTION()
+	void OnRep_IsFiringInputHeld();
 
 	// Calculates interp speed based on BaseRotationSpeed & Weapon rotation penalty.
 	float CalculateRotationInterpSpeed() const;
@@ -89,7 +91,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	USceneComponent* GetWeaponSocketComponent() const;
-	
+
+	UFUNCTION(BlueprintCallable)
 	void SetWeaponSocketComponent(USceneComponent* WeaponSocket);
 
 	UFUNCTION(BlueprintCallable)
