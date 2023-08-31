@@ -54,8 +54,8 @@ void AHGWeaponProjectile::Explode()
 {
 	FCollisionShape sphereShape = FCollisionShape::MakeSphere(100.0f);
 
-	// draw collision sphere for debug
-	DrawDebugSphere(GetWorld(), GetActorLocation(), sphereShape.GetSphereRadius(), 50, FColor::Purple, false, 2.0f);
+	// Open comment to debug area.
+	//DrawDebugSphere(GetWorld(), GetActorLocation(), sphereShape.GetSphereRadius(), 50, FColor::Purple, false, 2.0f);
 
 	TArray<FOverlapResult> outHits;
 	//TODO: make a seperate trace channel for damage traces.
