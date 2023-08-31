@@ -4,12 +4,14 @@
 #include "Core/Components/HGWeaponComponent.h"
 
 #include "HGLogChannels.h"
+#include "Core/Character/HGCharacter.h"
 #include "Core/Weapons/HGWeapon.h"
 #include "Core/Weapons/HGWeaponData.h"
 #include "Net/UnrealNetwork.h"
 
 UHGWeaponComponent::UHGWeaponComponent()
 {
+	PrimaryComponentTick.bCanEverTick = true;
 	SetIsReplicatedByDefault(true);
 }
 
@@ -31,6 +33,32 @@ void UHGWeaponComponent::BeginPlay()
 	}
 }
 
+void UHGWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	if (GetOwnerCharacter() == nullptr)
+	{
+		return;
+	}
+	
+	if (GetOwnerCharacter()->IsLocallyControlled())
+	{
+		
+	}
+	else
+	{
+		if (GetOwner()->HasAuthority())
+		{
+			
+		}
+		else
+		{
+			
+		}
+	}
+}
+
 void UHGWeaponComponent::Server_EquipNewWeapon_Implementation(UHGWeaponData* newWeaponData)
 {
 	EquipNewWeapon(newWeaponData);
@@ -44,6 +72,7 @@ void UHGWeaponComponent::Server_UnequipCurrentWeapon_Implementation()
 void UHGWeaponComponent::OnRep_WeaponInstance()
 {
 }
+
 
 USceneComponent* UHGWeaponComponent::GetWeaponSocketComponent() const
 {
@@ -64,6 +93,16 @@ void UHGWeaponComponent::SetWeaponSocketComponent(USceneComponent* WeaponSocket)
 		return;
 	}
 	WeaponSocketComponent = WeaponSocket;
+}
+
+FRotator UHGWeaponComponent::GetDesiredAimRotation() const
+{
+	return DesiredAimRotation;
+}
+
+void UHGWeaponComponent::SetDesiredAimRotation(const FRotator newAimRotation)
+{
+	DesiredAimRotation = newAimRotation;
 }
 
 bool UHGWeaponComponent::HasEquippedWeapon() const

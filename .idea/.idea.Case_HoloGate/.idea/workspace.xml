@@ -8,29 +8,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bee2202a-66cd-4f12-96b8-3eb3b3020e53" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Case_HoloGate/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Case_HoloGate/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Case_HoloGate/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/_HoloGate/Core/Character/BP_Character.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_HoloGate/Core/Character/BP_Character.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_HoloGate/Core/Player/BP_HGPlayerController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_HoloGate/Core/Player/BP_HGPlayerController.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_HoloGate/Core/Weapons/BP_Weapon_Default.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_HoloGate/Core/Weapons/BP_Weapon_Default.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/_HoloGate/UI/Widgets/W_HUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/_HoloGate/UI/Widgets/W_HUD.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Character/HGCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Character/HGCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGMovementComponent.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGPawnExtensionComponent.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGPawnComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGPawnComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGWeaponComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Components/HGWeaponComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Interfaces/HGAttributeInterface.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Weapons/HGWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Private/Core/Weapons/HGWeapon.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Character/HGCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Character/HGCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGMovementComponent.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGPawnComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGPawnComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGPawnExtensionComponent.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGWeaponComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGWeaponComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Interfaces/HGAttributeInterface.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Weapons/HGWeapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Weapons/HGWeapon.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Weapons/HGWeaponData.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Weapons/HGWeaponData.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Weapons/HGWeaponProjectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Weapons/HGWeaponProjectile.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,11 +25,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../Epic_Unreal/UE_5.2/Engine/Source/Runtime/Engine/Private/Components/CharacterMovementComponent.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Case_HoloGate/Public/Core/Components/HGWeaponComponent.h" root0="FORCE_HIGHLIGHTING" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2UiERJoHjRazjA0TZXSKoHTve0Z" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -57,6 +42,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -144,7 +130,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693413991239</updated>
-      <workItem from="1693413992379" duration="5464000" />
+      <workItem from="1693413992379" duration="6116000" />
+      <workItem from="1693482274006" duration="5689000" />
     </task>
     <servers />
   </component>

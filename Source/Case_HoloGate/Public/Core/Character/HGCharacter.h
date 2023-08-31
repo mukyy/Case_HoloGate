@@ -33,12 +33,16 @@ private:
 	// Spawned weapon visuals gets attached to it, acts as a socket.
 	UPROPERTY(EditDefaultsOnly)
 	USceneComponent* WeaponSocketComponent;
+
 	UPROPERTY(EditDefaultsOnly)
 	USpringArmComponent* SpringArmComponent;
+
 	UPROPERTY(EditDefaultsOnly)
 	UCameraComponent* CameraComponent;
+	
 	UPROPERTY(EditDefaultsOnly)
 	UHGAttributesComponent* AttributesComponent;
+	
 	UPROPERTY(EditDefaultsOnly)
 	UHGWeaponComponent* WeaponComponent;
 	

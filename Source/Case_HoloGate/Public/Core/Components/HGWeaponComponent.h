@@ -40,6 +40,9 @@ private:
 
 	UPROPERTY(Replicated, VisibleInstanceOnly)
 	UHGWeaponData* CurrentWeaponData;
+
+	UPROPERTY(VisibleInstanceOnly)
+	FRotator DesiredAimRotation;
 	
 protected:
 	virtual void BeginPlay() override;
@@ -51,11 +54,20 @@ protected:
 	void OnRep_WeaponInstance();
 
 public:
+
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	
 	UFUNCTION(BlueprintCallable)
 	USceneComponent* GetWeaponSocketComponent() const;
 	
 	void SetWeaponSocketComponent(USceneComponent* WeaponSocket);
 
+	UFUNCTION(BlueprintCallable)
+	FRotator GetDesiredAimRotation() const;
+
+	UFUNCTION(BlueprintCallable)
+	void SetDesiredAimRotation(const FRotator newAimRotation);
+	
 	UFUNCTION(BlueprintCallable)
 	bool HasEquippedWeapon() const;
 
