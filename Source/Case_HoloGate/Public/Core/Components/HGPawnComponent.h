@@ -21,5 +21,6 @@ class CASE_HOLOGATE_API UHGPawnComponent : public UHGComponent
 	GENERATED_BODY()
 
 protected:
+	UFUNCTION(BlueprintCallable)
 	virtual AHGCharacter* GetOwnerCharacter() const;
 };
