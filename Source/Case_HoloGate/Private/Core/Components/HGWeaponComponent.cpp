@@ -5,8 +5,10 @@
 
 #include "HGLogChannels.h"
 #include "Core/Character/HGCharacter.h"
+#include "Core/Player/HGPlayerController.h"
 #include "Core/Weapons/HGWeapon.h"
 #include "Core/Weapons/HGWeaponData.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Net/UnrealNetwork.h"
 
 UHGWeaponComponent::UHGWeaponComponent()
@@ -21,16 +23,17 @@ void UHGWeaponComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 
 	DOREPLIFETIME(UHGWeaponComponent, WeaponInstance);
 	DOREPLIFETIME(UHGWeaponComponent, CurrentWeaponData);
+	
+	// We dont need to know this since we are setting it directly with inputs.
+	DOREPLIFETIME_CONDITION(UHGWeaponComponent, DesiredAimRotation, COND_SkipOwner);
+
 }
 
 void UHGWeaponComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (GetOwnerRole() == ROLE_Authority)
-	{
-		EquipNewWeapon(DefaultWeaponData);
-	}
+	EquipNewWeapon(DefaultWeaponData);
 }
 
 void UHGWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -44,19 +47,49 @@ void UHGWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	
 	if (GetOwnerCharacter()->IsLocallyControlled())
 	{
+		AHGPlayerController* pc = GetOwnerCharacter()->GetHGPlayerController();
+		FRotator currentRotation = pc->GetControlRotation();
+		FHitResult cursorHitResult;
+		pc->GetHitResultUnderCursorByChannel(UEngineTypes::ConvertToTraceType(ECC_Visibility), true, cursorHitResult);
 		
+		FRotator targetRotation = UKismetMathLibrary::FindLookAtRotation(GetWeaponSocketComponent()->GetComponentLocation(), cursorHitResult.Location);
+
+		// So we only use yaw values since we have top down tanks.
+		targetRotation.Pitch = 0.0f;
+		targetRotation.Roll = 0.0f;
+		
+		FRotator interpolatedRotation = UKismetMathLibrary::RInterpTo_Constant(currentRotation, targetRotation, DeltaTime, CalculateRotationInterpSpeed());
+
+		// Unreal sends this value to serverside internally.
+		pc->SetControlRotation(interpolatedRotation);
+		// However set the rotation of the weapon instantly if we are the local player for responsiveness.
+		GetWeaponSocketComponent()->SetWorldRotation(interpolatedRotation);
 	}
+	// Other players
 	else
 	{
 		if (GetOwner()->HasAuthority())
 		{
-			
+			SetDesiredAimRotation(GetOwnerCharacter()->GetHGPlayerController()->GetControlRotation());
 		}
 		else
 		{
-			
+			// Smoothen the rotation on clients.
+			FRotator interpolatedRotation = UKismetMathLibrary::RInterpTo_Constant(GetWeaponSocketComponent()->GetComponentRotation(), GetDesiredAimRotation(), DeltaTime, CalculateRotationInterpSpeed());
+			GetWeaponSocketComponent()->SetWorldRotation(DesiredAimRotation);
 		}
 	}
+}
+
+UHGWeaponData* UHGWeaponComponent::GetCurrentWeaponData() const
+{
+	if (CurrentWeaponData == nullptr)
+	{
+		UE_LOG(LogHGDebug, Warning, TEXT("Tried accessing weapon data when no weapon data was present."));
+		return nullptr;
+	}
+
+	return CurrentWeaponData;
 }
 
 void UHGWeaponComponent::Server_EquipNewWeapon_Implementation(UHGWeaponData* newWeaponData)
@@ -73,6 +106,17 @@ void UHGWeaponComponent::OnRep_WeaponInstance()
 {
 }
 
+float UHGWeaponComponent::CalculateRotationInterpSpeed() const
+{
+	UHGWeaponData* weaponData = GetCurrentWeaponData();
+
+	if (weaponData == nullptr)
+	{
+		return RotationInterpSpeed;
+	}
+	
+	return RotationInterpSpeed * weaponData->WeaponData.HandleData.RotationSpeedModifier; 
+}
 
 USceneComponent* UHGWeaponComponent::GetWeaponSocketComponent() const
 {

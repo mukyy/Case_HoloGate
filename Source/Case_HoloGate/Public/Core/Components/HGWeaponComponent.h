@@ -35,13 +35,18 @@ private:
 	UPROPERTY(ReplicatedUsing=OnRep_WeaponInstance)
 	AHGWeapon* WeaponInstance;
 
+	// Controls base interp speed for weapon rotation.
+	UPROPERTY(EditDefaultsOnly)
+	float RotationInterpSpeed = 700.0f;
+	
 	UPROPERTY(EditDefaultsOnly)
 	UHGWeaponData* DefaultWeaponData;
 
 	UPROPERTY(Replicated, VisibleInstanceOnly)
 	UHGWeaponData* CurrentWeaponData;
 
-	UPROPERTY(VisibleInstanceOnly)
+	// Player controllers are not shared to other clients, DesiredAimRotation helps us replicate this value to other clients too.
+	UPROPERTY(Replicated, VisibleInstanceOnly)
 	FRotator DesiredAimRotation;
 	
 protected:
@@ -53,10 +58,16 @@ protected:
 	UFUNCTION()
 	void OnRep_WeaponInstance();
 
+	// Calculates interp speed based on BaseRotationSpeed & Weapon rotation penalty.
+	float CalculateRotationInterpSpeed() const;
+
 public:
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	
+
+	UFUNCTION(BlueprintCallable)
+	UHGWeaponData* GetCurrentWeaponData() const;
+
 	UFUNCTION(BlueprintCallable)
 	USceneComponent* GetWeaponSocketComponent() const;
 	

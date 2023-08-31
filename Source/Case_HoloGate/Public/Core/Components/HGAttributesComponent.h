@@ -45,6 +45,7 @@ public:
 	UHGAttributesComponent();
 
 protected:
+	// Finds index of the FAttribute struct inside OwnedAttributes using Attribute`s tag.
 	UFUNCTION(BlueprintCallable)
 	int32 GetAttributeIndex(const FGameplayTag& Attribute) const;
 	
@@ -58,9 +59,8 @@ protected:
 	TArray<FAttribute> Attributes;
 public:
 
-	// Finds index of the FAttribute struct inside OwnedAttributes using Attribute`s tag.
 	UFUNCTION(BlueprintCallable)
-	float GetAttributeValue(const FGameplayTag& Attribute) const;
+	FAttribute GetAttribute(const FGameplayTag& Attribute) const;
 
 	UFUNCTION(BlueprintCallable)
 	void SetAttributeValue(const FGameplayTag& Attribute, float NewValue);

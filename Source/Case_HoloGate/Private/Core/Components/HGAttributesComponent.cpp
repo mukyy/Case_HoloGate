@@ -76,19 +76,20 @@ void UHGAttributesComponent::SetAttributeValue(const FGameplayTag& Attribute, fl
 
 void UHGAttributesComponent::ModifyAttribute(const FGameplayTag& Attribute, float Amount)
 {
-	const float modifiedValue = GetAttributeValue(Attribute) + Amount;
+	const float modifiedValue = GetAttribute(Attribute).Value + Amount;
 	SetAttributeValue(Attribute, modifiedValue);
 }
 
-float UHGAttributesComponent::GetAttributeValue(const FGameplayTag& Attribute) const
+FAttribute UHGAttributesComponent::GetAttribute(const FGameplayTag& Attribute) const
 {
 	const int32 attributeIndex = GetAttributeIndex(Attribute);
 
 	// Avoid access to array if index is not found.
 	if (attributeIndex == -1)
 	{
-		return -1;
+		return FAttribute();
 	}
 	
-	return Attributes[attributeIndex].Value;
+	return Attributes[attributeIndex];
 }
+
